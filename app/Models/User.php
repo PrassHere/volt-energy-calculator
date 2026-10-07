@@ -10,17 +10,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
-#[Hidden(['password', 'remember_token'])]
 
-//Tip untuk Model Laravel: Karena Anda tidak menggunakan id standar Laravel sebagai 
-//Primary Key di tabel users (melainkan email), pastikan Anda mendefinisikan properti 
-//berikut di dalam file model app/Models/User.php:
-//protected $primaryKey = 'email';
-//public $incrementing = false;
-//protected $keyType = 'string';
+
+
 class User extends Authenticatable
 {
+
+    // Email dipakai sebagai primary key (sesuai migration)
+    protected $table = 'users';
+    protected $primaryKey = 'email';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = ['email', 'nama', 'password'];
+
+    protected $hidden = ['password'];
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
@@ -36,4 +41,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function getRememberTokenName()
+   {
+       return '';
+   }
 }

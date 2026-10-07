@@ -26,7 +26,7 @@
 
         <div class="flex items-center gap-3 border-l border-outline-variant pl-6">
             <div class="text-right">
-                <p class="font-label-md text-label-md text-on-surface">@yield('user_name', 'Alex Steventio')</p>
+                <p class="font-label-md text-label-md text-on-surface">{{ auth()->user()?->nama }}</p>
             </div>
             <img
                 alt="User Avatar"

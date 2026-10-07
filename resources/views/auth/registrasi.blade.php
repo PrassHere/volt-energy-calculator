@@ -13,18 +13,21 @@
             <p class="mt-1 text-sm text-on-surface-variant">Daftar untuk menggunakan Volt Energy Calculator.</p>
         </div>
 
-        <form action = "{{route('dashboard')}}" method="GET" action="#" class="space-y-4">
+        @include('partials.alert')
+
+        <form action="{{ route('registrasi.process') }}" method="POST" class="space-y-4">
+            @csrf
             <div>
                 <label class="block text-sm font-medium mb-1">Nama Lengkap</label>
-                <input id="txtName" name="nama" type="text" required class="w-full rounded-lg border-outline-variant" placeholder="Masukkan nama lengkap">
+                <input id="txtName" name="nama" type="text" value="{{ old('nama') }}" required class="w-full rounded-lg border-outline-variant" placeholder="Masukkan nama lengkap">
             </div>
             <div>
                 <label class="block text-sm font-medium mb-1">Email</label>
-                <input id="txtEmail" name="email" type="email" required class="w-full rounded-lg border-outline-variant" placeholder="Masukkan alamat email">
+                <input id="txtEmail" name="email" type="email" value="{{ old('email') }}" required class="w-full rounded-lg border-outline-variant" placeholder="Masukkan alamat email">
             </div>
             <div>
                 <label class="block text-sm font-medium mb-1">Kata Sandi</label>
-                <input id="txtPassword" name="password" type="password" required class="w-full rounded-lg border-outline-variant" placeholder="Masukkan kata sandi">
+                <input id="txtPassword" name="password" type="password" required class="w-full rounded-lg border-outline-variant" placeholder="Minimal 8 karakter">
             </div>
             <div>
                 <label class="block text-sm font-medium mb-1">Konfirmasi Kata Sandi</label>

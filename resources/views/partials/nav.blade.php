@@ -53,9 +53,12 @@
             Settings
         </a>
 
-        <a href="#" class="flex items-center py-3 text-on-secondary-container opacity-70 hover:text-on-secondary transition-colors font-label-md text-label-md">
-            <span class="material-symbols-outlined mr-4">logout</span>
-            Logout
-        </a>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="w-full flex items-center py-3 text-on-secondary-container opacity-70 hover:text-on-secondary transition-colors font-label-md text-label-md">
+                <span class="material-symbols-outlined mr-4">logout</span>
+                Logout
+            </button>
+        </form>
     </div>
 </aside>

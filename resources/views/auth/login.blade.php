@@ -13,10 +13,13 @@
             <p class="mt-1 text-sm text-on-surface-variant">Masuk untuk mengakses perhitungan energi dan riwayat perangkat.</p>
         </div>
 
-        <form action="{{ route('dashboard') }}" method="GET" class="space-y-4">
+        @include('partials.alert')
+
+        <form action="{{ route('login.process') }}" method="POST" class="space-y-4">
+            @csrf
             <div>
                 <label class="block text-sm font-medium mb-1">Email</label>
-                <input id="txtEmail" name="email" type="email" required class="w-full rounded-lg border-outline-variant" placeholder="Masukkan email">
+                <input id="txtEmail" name="email" type="email" value="{{ old('email') }}" required class="w-full rounded-lg border-outline-variant" placeholder="Masukkan email">
             </div>
             <div>
                 <label class="block text-sm font-medium mb-1">Kata Sandi</label>
