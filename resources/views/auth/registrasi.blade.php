@@ -37,7 +37,7 @@
 
         <p class="text-center text-sm text-on-surface-variant mt-6">
             Sudah memiliki akun?
-            <a id="linkLogin" href="{{ route('auth.login') }}" class="text-primary font-semibold hover:underline">Masuk</a>
+            <a id="linkLogin" href="{{ route('login') }}" class="text-primary font-semibold hover:underline">Masuk</a>
         </p>
     </div>
 </div>

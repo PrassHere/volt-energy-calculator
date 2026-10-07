@@ -109,7 +109,7 @@ tailwind.config = {
 
 <body class="bg-surface text-on-surface font-sans">
 
-    @if (request()->is('/') || request()->is('auth.login') || request()->is('auth.registrasi'))
+    @if (request()->is('/') || request()->is('login') || request()->is('registrasi'))
 
         {{-- Halaman Login & Registrasi tanpa sidebar --}}
         @yield('content')
