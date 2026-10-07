@@ -1,15 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/login', [PageController::class, 'login']);
-Route::get('/register', [PageController::class, 'register']);
-Route::get('/eco-tips', [PageController::class, 'eco_tips']);
-Route::get('/add-device', [PageController::class, 'add_device']);
-Route::get('/dashboard', [PageController::class, 'dashboard']);
-Route::get('/analytics', [PageController::class, 'analytics']);
-Route::get('/history', [PageController::class, 'history']);
+//Authentication
+Route::get('/', [PageController::class, 'login'])->name('login');
+Route::get('/login', [PageController::class, 'login'])->name('login');
+Route::get('/registrasi', [PageController::class, 'registrasi'])->name('registrasi');
 
+// Halaman utama
+Route::get('/dashboard', [PageController::class, 'index'])->name('dashboard');
 
-
+// Halaman fitur
+Route::get('/analytics', [PageController::class, 'analytics'])->name('analytics');
+Route::get('/history', [PageController::class, 'history'])->name('history');
+Route::get('/eco-tips', [PageController::class, 'ecoTips'])->name('eco-tips');
+Route::get('/add-device', [PageController::class, 'addDevice'])->name('add-device');
