@@ -10,7 +10,7 @@
                 <span class="material-symbols-outlined">bolt</span>
             </div>
             <h1 class="mt-4 text-2xl font-bold">Buat Akun</h1>
-            <p class="mt-1 text-sm text-on-surface-variant">Daftarkan akun untuk menggunakan Volt Energy Calculator.</p>
+            <p class="mt-1 text-sm text-on-surface-variant">Daftar untuk menggunakan Volt Energy Calculator.</p>
         </div>
 
         <form action = "{{route('dashboard')}}" method="GET" action="#" class="space-y-4">
