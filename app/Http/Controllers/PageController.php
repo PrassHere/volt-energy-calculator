@@ -2,43 +2,67 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PageController extends Controller
 {
-    public function login()
+    public function login(): View
     {
-        return view('login');
+        return view('auth.login');
     }
 
-    public function register()
+    public function registrasi(): View
     {
-        return view('register');
+        return view('auth.registrasi');
     }
 
-    public function eco_tips()
+    public function index(): View
     {
-        return view('eco_tips');
+        $dashboard = [
+            'activeDevices' => 24,
+            'totalConsumption' => 1248,
+            'estimatedCost' => 142.50,
+        ];
+
+        return view('index', compact('dashboard'));
     }
 
-    public function add_device()
+    public function analytics(): View
     {
-        return view('add_device');
+        $analytics = [
+            'totalConsumption' => 1284.5,
+            'estimatedCost' => 241.08,
+            'week' => [42, 38, 55, 48, 62, 35, 30],
+            'month' => [320, 410, 380, 445],
+        ];
+
+        return view('pages.analytics', compact('analytics'));
     }
 
-    public function dashboard()
+    public function history(): View
     {
-        return view('dashboard');
+        $history = [
+            'lastUpdated' => '14 mins ago',
+            'source' => 'Lab Mainframe',
+            'systemVersion' => 'v2.4.1',
+        ];
+
+        return view('pages.history', compact('history'));
     }
 
-    public function analytics()
+    public function ecoTips(): View
     {
-        return view('analytics');
+        return view('pages.eco-tips');
     }
 
-    public function history()
+    public function addDevice(): View
     {
-        return view('history');
-    }
+        $calculator = [
+            'defaultPower' => 100,
+            'defaultUsage' => 8,
+            'defaultTariff' => 0.15,
+        ];
 
+        return view('pages.add-device', compact('calculator'));
+    }
 }
