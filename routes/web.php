@@ -5,7 +5,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
-Route::middleware('guest')->group(function () {
+Route::middleware(['guest', 'nocache'])->group(function () {
     Route::get('/login', [PageController::class, 'login'])->name('login');
     Route::post('/login', [UserController::class, 'login'])->name('login.process');
 
@@ -13,7 +13,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/registrasi', [UserController::class, 'register'])->name('registrasi.process');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','nocache'])->group(function () {
     // Halaman utama
     Route::get('/dashboard', [PageController::class, 'index'])->name('dashboard');
 
