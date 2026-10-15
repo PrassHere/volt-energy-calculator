@@ -132,6 +132,12 @@ tailwind.config = {
         </div>
 
     @endif
+    
+    <script>
+        // untuk memulihkan dari cache tombol Back, muat ulang dari server
+        window.addEventListener('pageshow', function (e) {
+            if (e.persisted) window.location.reload();
+    </script>
 
     @stack('scripts')
 
