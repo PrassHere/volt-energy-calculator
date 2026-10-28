@@ -28,11 +28,16 @@
             <div class="text-right">
                 <p class="font-label-md text-label-md text-on-surface">{{ auth()->user()?->nama }}</p>
             </div>
-            <img
-                alt="User Avatar"
-                class="w-8 h-8 rounded-full border border-outline-variant bg-surface-container-high object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj0ZJL8kn8oDDmbdhfiJ6cVD78b5ms0HDLkaWa6jJiN2Et4Vr4RoxAl57NqoZuROgCznpybpK7HTGz9pqp7R1--JnubMFJxYgnvx54SIO3EdqH7thyJVtYDthjjV50aiJvtE8xxgxUJ17v6RKyGT1ZMNiHvCUo5JhNXnCqUqzXY0IWkK2YUarIRb0Xs40RaFqPqpUqCMkzGdNlcZH-6-RPoWbPCkoJVKgCERbRwBu3wNt4oRgDTcv0lp0WJfU_cjrColM2JXhFwF0"
-            >
+
+            @if (auth()->user()?->foto_url)
+                <img alt="Foto profil"
+                     class="w-8 h-8 rounded-full border border-outline-variant bg-surface-container-high object-cover"
+                     src="{{ auth()->user()->foto_url }}">
+            @else
+                <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-label-sm">
+                    {{ auth()->user()?->inisial }}
+                </div>
+            @endif
         </div>
     </div>
 </header>
