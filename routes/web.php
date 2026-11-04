@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\UserController;
@@ -23,8 +24,10 @@ Route::middleware(['auth','nocache'])->group(function () {
 
     // Halaman utama
     Route::get('/dashboard', [PageController::class, 'index'])->name('dashboard');
+    
 
     // Halaman fitur
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/analytics', [PageController::class, 'analytics'])->name('analytics');
     Route::get('/history', [PageController::class, 'history'])->name('history');
     Route::get('/eco-tips', [PageController::class, 'ecoTips'])->name('eco-tips');
