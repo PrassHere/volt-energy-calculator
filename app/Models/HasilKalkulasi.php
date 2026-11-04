@@ -68,4 +68,24 @@ class HasilKalkulasi extends Model
 
         return (int) $hasil->n === 0 ? null : (float) $hasil->total;
     }
+
+        /**
+     * Hitung ulang hasil kalkulasi satu periode untuk SEMUA perangkat milik user.
+     * Satu baris per perangkat (diperbarui jika sudah ada, tidak digandakan);
+     * total_biaya diisi dengan jumlah biaya semua perangkat.
+     */
+    public static function hitungUlang(string $email, ?string $periode = null): void
+    {
+        $periode ??= self::periodeBulan();
+
+        $perangkats = Perangkat::where('email', $email)->get();
+        $total      = round($perangkats->sum(fn ($p) => $p->biaya_bulanan), 2);
+
+        foreach ($perangkats as $p) {
+            static::updateOrCreate(
+                ['email' => $email, 'id_perangkat' => $p->id_perangkat, 'periode' => $periode],
+                ['biaya_perangkat' => round($p->biaya_bulanan, 2), 'total_biaya' => $total]
+            );
+        }
+    }
 }

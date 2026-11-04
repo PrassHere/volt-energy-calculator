@@ -24,6 +24,7 @@ class Perangkat extends Model
         'tarif_listrik',
         'waktu_penggunaan',
         'kwh',
+        'tanggal_input',
     ];
 
     protected function casts(): array
@@ -46,6 +47,18 @@ class Perangkat extends Model
     public function hasilKalkulasis(): HasMany
     {
         return $this->hasMany(HasilKalkulasi::class, 'id_perangkat', 'id_perangkat');
+    }
+
+    // `tanggal_input` sengaja TIDAK di-cast ke date. Simpan sebagai teks 'Y-m-d'
+    // supaya hasilnya sama di MySQL (Aiven) dan SQLite (test).
+
+    /**
+     * Konsumsi energi PER HARI dalam kWh = daya (watt) x jam per hari / 1000.
+     * Dibulatkan 4 desimal agar perangkat berdaya kecil tidak menjadi 0.
+     */
+    public static function hitungKwh(float $daya, float $jamPerHari): float
+    {
+        return round($daya * $jamPerHari / 1000, 4);
     }
 
     // Jumlah hari untuk estimasi bulanan (dari config/dashboard.php)

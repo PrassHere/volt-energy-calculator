@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PerangkatController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,8 @@ Route::middleware(['auth','nocache'])->group(function () {
     Route::get('/history', [PageController::class, 'history'])->name('history');
     Route::get('/eco-tips', [PageController::class, 'ecoTips'])->name('eco-tips');
     Route::get('/add-device', [PageController::class, 'addDevice'])->name('add-device');
+    Route::post('/add-device', [PerangkatController::class, 'store'])->name('add-device.store');
+    Route::get('/add-device/reset', [PerangkatController::class, 'reset'])->name('add-device.reset');
     
 });
 
