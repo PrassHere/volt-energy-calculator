@@ -50,19 +50,7 @@ class DashboardSeeder extends Seeder
             ->sequence(...$daftar)
             ->create(['email' => $user->email]);
 
-        // 4) Hasil kalkulasi bulan ini: satu baris per perangkat
-        $perangkats = Perangkat::where('email', $user->email)->get();
-        $totalBiaya = round($perangkats->sum(fn ($p) => $p->biaya_bulanan), 2);
-        $periode    = HasilKalkulasi::periodeBulan();
-
-        foreach ($perangkats as $p) {
-            HasilKalkulasi::factory()->create([
-                'email'           => $user->email,
-                'id_perangkat'    => $p->id_perangkat,
-                'periode'         => $periode,
-                'biaya_perangkat' => round($p->biaya_bulanan, 2),
-                'total_biaya'     => $totalBiaya,
-            ]);
-        }
+        // 4) Hasil kalkulasi bulan ini: satu baris per perangkat (kwh, durasi, biaya, tanggal)
+        HasilKalkulasi::hitungUlang($user->email);
     }
 }

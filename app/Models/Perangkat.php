@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\KalkulatorEnergi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -58,7 +59,7 @@ class Perangkat extends Model
      */
     public static function hitungKwh(float $daya, float $jamPerHari): float
     {
-        return round($daya * $jamPerHari / 1000, 4);
+        return KalkulatorEnergi::kwhHarian($daya, $jamPerHari);
     }
 
     // Jumlah hari untuk estimasi bulanan (dari config/dashboard.php)

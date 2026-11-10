@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KalkulasiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PerangkatController;
@@ -35,6 +36,8 @@ Route::middleware(['auth','nocache'])->group(function () {
     Route::get('/add-device', [PageController::class, 'addDevice'])->name('add-device');
     Route::post('/add-device', [PerangkatController::class, 'store'])->name('add-device.store');
     Route::get('/add-device/reset', [PerangkatController::class, 'reset'])->name('add-device.reset');
+    Route::post('/kalkulasi/hitung', [KalkulasiController::class, 'hitung'])->name('kalkulasi.hitung');
+    Route::post('/kalkulasi/simpan', [KalkulasiController::class, 'simpan'])->name('kalkulasi.simpan');
     
 });
 
