@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Perangkat extends Model
 {
@@ -50,6 +51,13 @@ class Perangkat extends Model
         return $this->hasMany(HasilKalkulasi::class, 'id_perangkat', 'id_perangkat');
     }
 
+    // Hasil kalkulasi terakhir (baris dengan id_hasil terbesar) untuk perangkat ini
+    public function hasilTerakhir(): HasOne
+    {
+        return $this->hasOne(HasilKalkulasi::class, 'id_perangkat', 'id_perangkat')
+            ->latestOfMany('id_hasil');
+    }
+
     // `tanggal_input` sengaja TIDAK di-cast ke date. Simpan sebagai teks 'Y-m-d'
     // supaya hasilnya sama di MySQL (Aiven) dan SQLite (test).
 
@@ -74,19 +82,21 @@ class Perangkat extends Model
      */
     public static function statistik(string $email): array
     {
+        // Nama alias (jumlah_kwh, jumlah_biaya) sengaja berbeda dari nama accessor model
+        // (biaya_harian, biaya_mingguan, ...) agar tidak bentrok saat dibaca.
         $hasil = static::where('email', $email)
             ->selectRaw('COUNT(*) AS total')
-            ->selectRaw('COALESCE(SUM(kwh), 0) AS kwh_harian')
-            ->selectRaw('COALESCE(SUM(kwh * tarif_listrik), 0) AS biaya_harian')
+            ->selectRaw('COALESCE(SUM(kwh), 0) AS jumlah_kwh')
+            ->selectRaw('COALESCE(SUM(kwh * tarif_listrik), 0) AS jumlah_biaya')
             ->first();
 
         $hari = self::hariPerBulan();
 
         return [
             'total_perangkat' => (int) $hasil->total,
-            'kwh_harian'      => (float) $hasil->kwh_harian,
-            'kwh_bulanan'     => (float) $hasil->kwh_harian * $hari,
-            'biaya_bulanan'   => (float) $hasil->biaya_harian * $hari,
+            'kwh_harian'      => (float) $hasil->jumlah_kwh,
+            'kwh_bulanan'     => (float) $hasil->jumlah_kwh * $hari,
+            'biaya_bulanan'   => (float) $hasil->jumlah_biaya * $hari,
         ];
     }
 
@@ -96,6 +106,17 @@ class Perangkat extends Model
         return $this->kwh * self::hariPerBulan();
     }
 
+    // $perangkat->biaya_harian dan $perangkat->biaya_mingguan (rupiah)
+    public function getBiayaHarianAttribute(): float
+    {
+        return KalkulatorEnergi::rincian($this->kwh, $this->tarif_listrik)['biaya']['harian'];
+    }
+
+    public function getBiayaMingguanAttribute(): float
+    {
+        return KalkulatorEnergi::rincian($this->kwh, $this->tarif_listrik)['biaya']['mingguan'];
+    }
+    
     // $perangkat->biaya_bulanan (rupiah)
     public function getBiayaBulananAttribute(): float
     {
