@@ -43,6 +43,7 @@ class PerangkatFactory extends Factory
                 $atribut['daya'] * $atribut['waktu_penggunaan'] / 1000,
                 2
             ),
+            'tanggal_input'    => now()->toDateString(),
         ];
     }
 }
