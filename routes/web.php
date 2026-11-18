@@ -25,10 +25,6 @@ Route::middleware(['auth','nocache'])->group(function () {
     Route::get('/profil', [ProfilController::class, 'show'])->name('profil');
     Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
 
-    // Halaman utama
-    Route::get('/dashboard', [PageController::class, 'index'])->name('dashboard');
-    
-
     // Halaman fitur
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/analytics', [PageController::class, 'analytics'])->name('analytics');
@@ -41,8 +37,8 @@ Route::middleware(['auth','nocache'])->group(function () {
     Route::get('/history', [RiwayatController::class, 'index'])->name('history');
     Route::put('/history/{perangkat}', [PerangkatController::class, 'update'])->name('perangkat.update');
     Route::delete('/history/{perangkat}', [PerangkatController::class, 'destroy'])->name('perangkat.destroy');
-    
-    
+
+
 });
 
 // Gambar foto profil: di luar grup 'nocache' agar boleh di-cache browser

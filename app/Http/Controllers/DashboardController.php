@@ -39,6 +39,6 @@ class DashboardController extends Controller
         $akunDemo = $user->email === config('dashboard.email_demo');
         $kosong   = $statistik['total_perangkat'] === 0;
 
-        return view('dashboard', compact('kartu', 'tren', 'akunDemo', 'kosong'));
+        return view('index', compact('kartu', 'tren', 'akunDemo', 'kosong'));
     }
 }
