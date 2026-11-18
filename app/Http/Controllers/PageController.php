@@ -65,4 +65,5 @@ class PageController extends Controller
 
         return view('pages.add-device', compact('calculator'));
     }
+
 }
