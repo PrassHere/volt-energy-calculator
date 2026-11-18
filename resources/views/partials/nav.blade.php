@@ -4,6 +4,17 @@
     </div>
 
     <nav class="flex-grow">
+        @if (request()->routeIs('admin.*'))
+        <ul class="space-y-1">
+            <li>
+                <a href="{{ route('admin.eco-tips') }}"
+                   class="{{ request()->routeIs('admin.eco-tips') ? 'border-l-4 border-primary-container bg-inverse-surface text-on-secondary font-bold' : 'text-on-secondary-container opacity-70 hover:bg-secondary-container/10' }} flex items-center px-6 py-3 transition-colors font-label-md text-label-md">
+                    <span class="material-symbols-outlined mr-4">eco</span>
+                    Kelola Tips Hemat Energi
+                </a>
+            </li>
+        </ul>
+        @else
         <ul class="space-y-1">
             <li>
                 <a href="{{ route('dashboard') }}"
@@ -45,6 +56,7 @@
                 </a>
             </li>
         </ul>
+        @endif
     </nav>
 
     <div class="px-6 mt-auto space-y-1 pt-8 border-t border-on-secondary/10">

@@ -55,6 +55,11 @@ class PageController extends Controller
         return view('pages.eco-tips');
     }
 
+    public function adminEcoTips(): View
+    {
+        return view('pages.admin.eco-tips');
+    }
+
     public function addDevice(): View
     {
         $calculator = [
