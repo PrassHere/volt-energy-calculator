@@ -48,9 +48,10 @@
     </nav>
 
     <div class="px-6 mt-auto space-y-1 pt-8 border-t border-on-secondary/10">
-        <a href="#" class="flex items-center py-3 text-on-secondary-container opacity-70 hover:text-on-secondary transition-colors font-label-md text-label-md">
-            <span class="material-symbols-outlined mr-4">settings</span>
-            Settings
+        <a href="{{ route('profil') }}"
+           class="{{ request()->routeIs('profil*') ? 'text-on-secondary font-bold' : 'text-on-secondary-container opacity-70' }} flex items-center py-3 hover:text-on-secondary transition-colors font-label-md text-label-md">
+            <span class="material-symbols-outlined mr-4">person</span>
+            Profil
         </a>
 
         <form action="{{ route('logout') }}" method="POST">

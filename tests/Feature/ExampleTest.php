@@ -2,18 +2,21 @@
 
 namespace Tests\Feature;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     */
-    public function test_the_application_returns_a_successful_response(): void
+    public function test_halaman_awal_tamu_diarahkan_ke_login(): void
     {
-        $response = $this->get('/');
+        $this->get('/')->assertRedirect('/login');
+    }
 
-        $response->assertStatus(200);
+    public function test_user_yang_sudah_login_tidak_melihat_halaman_login(): void
+    {
+        // User ini tidak disimpan ke database; cukup untuk simulasi sudah login
+        $user = new User(['email' => 'tes@contoh.test', 'nama' => 'Tes']);
+
+        $this->actingAs($user)->get('/login')->assertRedirect(route('dashboard'));
     }
 }
