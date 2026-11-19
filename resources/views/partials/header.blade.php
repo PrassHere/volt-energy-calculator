@@ -1,4 +1,5 @@
-<header class="h-16 flex justify-between items-center px-margin-desktop w-full bg-surface border-b border-outline-variant sticky top-0 z-40">
+<header
+    class="h-16 flex justify-between items-center px-margin-desktop w-full bg-surface border-b border-outline-variant sticky top-0 z-40">
     <div class="flex-1 min-w-0">
         @hasSection('header_left')
             @yield('header_left')
@@ -19,7 +20,9 @@
     <div class="flex items-center gap-6 ml-4 shrink-0">
         @yield('header_actions')
 
-        <button class="relative text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors" type="button">
+        <button
+            class="relative text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors"
+            type="button">
             <span class="material-symbols-outlined">notifications</span>
             <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
         </button>
@@ -31,8 +34,8 @@
 
             @if (auth()->user()?->foto_url)
                 <img alt="Foto profil"
-                     class="w-8 h-8 rounded-full border border-outline-variant bg-surface-container-high object-cover"
-                     src="{{ auth()->user()->foto_url }}">
+                    class="w-8 h-8 rounded-full border border-outline-variant bg-surface-container-high object-cover"
+                    src="{{ auth()->user()->foto_url }}">
             @else
                 <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-label-sm">
                     {{ auth()->user()?->inisial }}

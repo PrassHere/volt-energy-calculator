@@ -39,10 +39,25 @@ class PageController extends Controller
         return view('pages.analytics', compact('analytics'));
     }
 
+    public function history(): View
+    {
+        $history = [
+            'lastUpdated' => '14 mins ago',
+            'source' => 'Lab Mainframe',
+            'systemVersion' => 'v2.4.1',
+        ];
+
+        return view('pages.history', compact('history'));
+    }
 
     public function ecoTips(): View
     {
         return view('pages.eco-tips');
+    }
+
+    public function adminEcoTips(): View
+    {
+        return view('pages.admin.eco-tips');
     }
 
     public function addDevice(): View
@@ -55,4 +70,5 @@ class PageController extends Controller
 
         return view('pages.add-device', compact('calculator'));
     }
+
 }

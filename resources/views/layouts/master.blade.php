@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
-
+    
 <script>
 tailwind.config = {
     darkMode: "class",
@@ -109,7 +109,7 @@ tailwind.config = {
 
 <body class="bg-surface text-on-surface font-sans">
 
-    @if (request()->is('/') || request()->is('login') || request()->is('registrasi'))
+    @if (request()->is('/') || request()->is('auth.login') || request()->is('auth.registrasi'))
 
         {{-- Halaman Login & Registrasi tanpa sidebar --}}
         @yield('content')
@@ -132,13 +132,6 @@ tailwind.config = {
         </div>
 
     @endif
-
-    <script>
-        // untuk memulihkan dari cache tombol Back, muat ulang dari server
-        window.addEventListener('pageshow', function (e) {
-            if (e.persisted) window.location.reload();
-        });
-    </script>
 
     @stack('scripts')
 
