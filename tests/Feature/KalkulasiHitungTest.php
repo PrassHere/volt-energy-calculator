@@ -60,6 +60,19 @@ class KalkulasiHitungTest extends DatabaseTestCase
             ->assertJsonPath('teks.biaya_bulanan', 'Rp311.904');
     }
 
+    public function test_kalkulasi_hitung_respons_kurang_dari_dua_detik(): void
+    {
+        $user = User::factory()->create();
+
+        $mulai = microtime(true);
+        $this->actingAs($user)
+            ->postJson('/kalkulasi/hitung', $this->dataValid())
+            ->assertOk();
+        $durasi = microtime(true) - $mulai;
+
+        $this->assertLessThan(2.0, $durasi);
+    }
+
     public function test_hitung_tidak_menyimpan_apa_pun_ke_database(): void
     {
         $user = User::factory()->create();
