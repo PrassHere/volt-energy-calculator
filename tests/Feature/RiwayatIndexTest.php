@@ -167,4 +167,29 @@ class RiwayatIndexTest extends DatabaseTestCase
             ->assertRedirect(route('history'))
             ->assertSessionHasErrors('sampai');
     }
+
+    public function test_ekspor_riwayat_berhasil_menghasilkan_file_csv(): void
+    {
+        $user = $this->userDenganTigaPerangkat();
+
+        $response = $this->actingAs($user)
+            ->get(route('history.export'))
+            ->assertOk();
+
+        $this->assertStringContainsString('text/csv', (string) $response->headers->get('Content-Type'));
+        $this->assertStringContainsString('attachment;', (string) $response->headers->get('Content-Disposition'));
+    }
+
+    public function test_tampilan_riwayat_asli_berhasil_dirender(): void
+    {
+        $user = $this->userDenganTigaPerangkat();
+
+        $this->actingAs($user)
+            ->get('/history')
+            ->assertOk()
+            ->assertSee('Riwayat Perangkat')
+            ->assertSee('AC Kamar')
+            ->assertSee('modalEdit')
+            ->assertSee('modalDelete');
+    }
 }

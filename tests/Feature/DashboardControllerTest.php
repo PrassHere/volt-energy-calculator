@@ -124,4 +124,17 @@ class DashboardControllerTest extends DatabaseTestCase
             ->get('/dashboard')
             ->assertViewHas('kartu', fn ($k) => $k['biaya_bulanan'] === 'Rp30.000');
     }
+
+    public function test_tampilan_dashboard_asli_berhasil_dirender(): void
+    {
+        $this->seed(DashboardSeeder::class);
+        $user = User::find(config('dashboard.email_demo'));
+
+        $this->actingAs($user)
+            ->get('/dashboard')
+            ->assertOk()
+            ->assertSee('Dashboard Overview')
+            ->assertSee('Total Perangkat Terdaftar')
+            ->assertSee('consumptionChart');
+    }
 }

@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             $middleware->redirectUsersTo('/dashboard');
             $middleware->alias([
                 'nocache' => \App\Http\Middleware\PreventBackHistory::class,
+                'admin'   => \App\Http\Middleware\AdminMiddleware::class,
             ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
