@@ -29,7 +29,11 @@ class PageController extends Controller
 
     public function analytics(): View
     {
-        
+        $analytics = [
+            'dailyConsumption' => [120, 130, 125, 140, 135, 150, 145],
+            'weeklyConsumption' => [800, 850, 900, 950],
+            'monthlyConsumption' => [3200, 3300, 3400],
+        ];
 
         return view('pages.analytics', compact('analytics'));
     }
