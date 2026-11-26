@@ -62,8 +62,8 @@ class PageController extends Controller
     public function addDevice(): View
     {
         $calculator = [
-            'defaultPower' => 100,
-            'defaultUsage' => 8,
+            'defaultPower' => 1000,
+            'defaultUsage' => 80,
             'defaultTariff' => 0.15,
         ];
 
